@@ -10,7 +10,7 @@ prometheus.relabel "metrics_service" {
     source_labels = ["cluster"]
     regex = ""
     replacement = {{ required ".Values.cluster.name is a required value. Please set it and try again." .Values.cluster.name | quote }}
-    target_label = "cluster"
+    target_label = {{ required ".Values.cluster.metricsLabelName is a required value. Please set it and try again." .Values.cluster.metricsLabelName | quote }}
   }
 
 {{- if .Values.metrics.extraMetricRelabelingRules }}

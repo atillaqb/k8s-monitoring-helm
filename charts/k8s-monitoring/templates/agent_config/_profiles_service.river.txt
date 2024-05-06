@@ -29,7 +29,7 @@ pyroscope.write "profiles_service" {
     {{ $key }} = {{ $value | quote }},
   {{- end }}
 {{- end }}
-    cluster = {{ required ".Values.cluster.name is a required value. Please set it and try again." .Values.cluster.name | quote }},
+    {{ required ".Values.cluster.metricsLabelName is a required value. Please set it and try again." .Values.cluster.metricsLabelName | quote }} = {{ required ".Values.cluster.name is a required value. Please set it and try again." .Values.cluster.name | quote }},
   }
 }
 {{ end }}

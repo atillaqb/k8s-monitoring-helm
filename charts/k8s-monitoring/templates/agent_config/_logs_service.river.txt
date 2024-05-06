@@ -8,7 +8,7 @@ remote.kubernetes.secret "logs_service" {
 loki.process "logs_service" {
   stage.static_labels {
       values = {
-        cluster = {{ required ".Values.cluster.name is a required value. Please set it and try again." .Values.cluster.name | quote }},
+        {{ required ".Values.cluster.metricsLabelName is a required value. Please set it and try again." .Values.cluster.metricsLabelName | quote }} = {{ required ".Values.cluster.name is a required value. Please set it and try again." .Values.cluster.name | quote }},
       }
   }
 
