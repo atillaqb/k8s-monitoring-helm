@@ -6,7 +6,7 @@ version: 0.13.4
 appVersion: 2.2.0
 icon: https://raw.githubusercontent.com/grafana/grafana/main/public/img/grafana_icon.svg
 sources:
-  - https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring
+  - https://github.com/atillaqb/k8s-monitoring-helm/tree/k8s-cluster-name/charts/k8s-monitoring
 maintainers:
   - email: pete.wall@grafana.com
     name: petewall
