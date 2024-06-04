@@ -11,6 +11,11 @@ otelcol.processor.attributes "logs_service" {
     value = {{ required ".Values.cluster.name is a required value. Please set it and try again." .Values.cluster.name | quote }}
     action = "upsert"
   }
+  action {
+    key = "loki.resource.labels"
+    action = "insert"
+    value = "service.name"
+  }
 {{ with .Values.externalServices.loki }}
   {{- range $key, $value := .externalLabels }}
   action {

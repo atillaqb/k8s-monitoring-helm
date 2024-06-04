@@ -51,7 +51,6 @@ otelcol.processor.k8sattributes "default" {
       "k8s.node.name",
       "k8s.pod.uid",
       "k8s.pod.start_time",
-      "service.name",
     ]
   }
   pod_association {
@@ -153,7 +152,6 @@ otelcol.processor.transform "default" {
       "set(attributes[\"pod\"], attributes[\"k8s.pod.name\"])",
       "set(attributes[\"namespace\"], attributes[\"k8s.namespace.name\"])",
       "set(attributes[\"loki.resource.labels\"], \"pod, namespace, cluster, job\")",
-      "set(attributes[\"service_name\"], attributes[\"service.name\"])",
       "set(attributes[\"k8s.cluster.name\"], \"{{ required ".Values.cluster.name is a required value. Please set it and try again." .Values.cluster.name }}\") where attributes[\"k8s.cluster.name\"] == nil",
     ]
   }
