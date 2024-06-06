@@ -156,6 +156,7 @@ otelcol.processor.transform "default" {
 {{- end }}
       "set(attributes[\"pod\"], attributes[\"k8s.pod.name\"])",
       "set(attributes[\"namespace\"], attributes[\"k8s.namespace.name\"])",
+      "set(attributes[\"service_name\"], attributes[\"k8s.deployment.name\"])",
       "set(attributes[\"loki.resource.labels\"], \"{{ .Values.logs.receiver.transforms.labels | join ", " }}\")",
       "set(attributes[\"k8s.cluster.name\"], \"{{ required ".Values.cluster.name is a required value. Please set it and try again." .Values.cluster.name }}\") where attributes[\"k8s.cluster.name\"] == nil",
     ]
