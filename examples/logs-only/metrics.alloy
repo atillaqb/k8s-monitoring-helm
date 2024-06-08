@@ -72,6 +72,7 @@ otelcol.processor.transform "default" {
     statements = [
       "set(attributes[\"pod\"], attributes[\"k8s.pod.name\"])",
       "set(attributes[\"namespace\"], attributes[\"k8s.namespace.name\"])",
+      "set(attributes[\"service_name\"], attributes[\"k8s.deployment.name\"])",
       "set(attributes[\"loki.resource.labels\"], \"cluster, namespace, job, pod\")",
       "set(attributes[\"k8s.cluster.name\"], \"logs-only-test\") where attributes[\"k8s.cluster.name\"] == nil",
     ]
