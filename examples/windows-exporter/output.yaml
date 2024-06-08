@@ -69,7 +69,7 @@ metadata:
   name: k8smon-opencost
   namespace: default
   labels:
-    helm.sh/chart: opencost-1.35.0
+    helm.sh/chart: opencost-1.38.1
     app.kubernetes.io/name: opencost
     app.kubernetes.io/instance: k8smon
     app.kubernetes.io/version: "1.110.0"
@@ -260,6 +260,7 @@ data:
         statements = [
           "set(attributes[\"pod\"], attributes[\"k8s.pod.name\"])",
           "set(attributes[\"namespace\"], attributes[\"k8s.namespace.name\"])",
+          "set(attributes[\"service_name\"], attributes[\"k8s.deployment.name\"])",
           "set(attributes[\"loki.resource.labels\"], \"cluster, namespace, job, pod\")",
           "set(attributes[\"k8s.cluster.name\"], \"default-values-test\") where attributes[\"k8s.cluster.name\"] == nil",
         ]
@@ -48701,7 +48702,7 @@ kind: ClusterRole
 metadata:
   name: k8smon-opencost
   labels:
-    helm.sh/chart: opencost-1.35.0
+    helm.sh/chart: opencost-1.38.1
     app.kubernetes.io/name: opencost
     app.kubernetes.io/instance: k8smon
     app.kubernetes.io/version: "1.110.0"
@@ -48877,7 +48878,7 @@ kind: ClusterRoleBinding
 metadata:
   name: k8smon-opencost
   labels:
-    helm.sh/chart: opencost-1.35.0
+    helm.sh/chart: opencost-1.38.1
     app.kubernetes.io/name: opencost
     app.kubernetes.io/instance: k8smon
     app.kubernetes.io/version: "1.110.0"
@@ -49100,7 +49101,7 @@ metadata:
   name: k8smon-opencost
   namespace: default
   labels:
-    helm.sh/chart: opencost-1.35.0
+    helm.sh/chart: opencost-1.38.1
     app.kubernetes.io/name: opencost
     app.kubernetes.io/instance: k8smon
     app.kubernetes.io/version: "1.110.0"
@@ -49110,7 +49111,7 @@ spec:
   selector:
     app.kubernetes.io/name: opencost
     app.kubernetes.io/instance: k8smon
-  type: ClusterIP
+  type: "ClusterIP"
   ports:
     - name: http
       port: 9003
@@ -49706,7 +49707,7 @@ metadata:
   name: k8smon-opencost
   namespace: default
   labels:
-    helm.sh/chart: opencost-1.35.0
+    helm.sh/chart: opencost-1.38.1
     app.kubernetes.io/name: opencost
     app.kubernetes.io/instance: k8smon
     app.kubernetes.io/version: "1.110.0"
@@ -50073,6 +50074,7 @@ data:
         statements = [
           "set(attributes[\"pod\"], attributes[\"k8s.pod.name\"])",
           "set(attributes[\"namespace\"], attributes[\"k8s.namespace.name\"])",
+          "set(attributes[\"service_name\"], attributes[\"k8s.deployment.name\"])",
           "set(attributes[\"loki.resource.labels\"], \"cluster, namespace, job, pod\")",
           "set(attributes[\"k8s.cluster.name\"], \"default-values-test\") where attributes[\"k8s.cluster.name\"] == nil",
         ]
