@@ -52,7 +52,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:    
-    helm.sh/chart: kube-state-metrics-5.19.0
+    helm.sh/chart: kube-state-metrics-5.20.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
@@ -223,6 +223,7 @@ data:
         statements = [
           "set(attributes[\"pod\"], attributes[\"k8s.pod.name\"])",
           "set(attributes[\"namespace\"], attributes[\"k8s.namespace.name\"])",
+          "set(attributes[\"service_name\"], attributes[\"k8s.deployment.name\"])",
           "set(attributes[\"loki.resource.labels\"], \"cluster, namespace, job, pod\")",
           "set(attributes[\"k8s.cluster.name\"], \"proxies-test\") where attributes[\"k8s.cluster.name\"] == nil",
         ]
@@ -48453,7 +48454,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:    
-    helm.sh/chart: kube-state-metrics-5.19.0
+    helm.sh/chart: kube-state-metrics-5.20.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
@@ -48764,7 +48765,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:    
-    helm.sh/chart: kube-state-metrics-5.19.0
+    helm.sh/chart: kube-state-metrics-5.20.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
@@ -48983,7 +48984,7 @@ metadata:
   name: k8smon-kube-state-metrics
   namespace: default
   labels:    
-    helm.sh/chart: kube-state-metrics-5.19.0
+    helm.sh/chart: kube-state-metrics-5.20.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
@@ -49406,7 +49407,7 @@ metadata:
   name: k8smon-kube-state-metrics
   namespace: default
   labels:    
-    helm.sh/chart: kube-state-metrics-5.19.0
+    helm.sh/chart: kube-state-metrics-5.20.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
@@ -49425,7 +49426,7 @@ spec:
   template:
     metadata:
       labels:        
-        helm.sh/chart: kube-state-metrics-5.19.0
+        helm.sh/chart: kube-state-metrics-5.20.0
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: metrics
         app.kubernetes.io/part-of: kube-state-metrics
@@ -49857,6 +49858,7 @@ data:
         statements = [
           "set(attributes[\"pod\"], attributes[\"k8s.pod.name\"])",
           "set(attributes[\"namespace\"], attributes[\"k8s.namespace.name\"])",
+          "set(attributes[\"service_name\"], attributes[\"k8s.deployment.name\"])",
           "set(attributes[\"loki.resource.labels\"], \"cluster, namespace, job, pod\")",
           "set(attributes[\"k8s.cluster.name\"], \"proxies-test\") where attributes[\"k8s.cluster.name\"] == nil",
         ]
