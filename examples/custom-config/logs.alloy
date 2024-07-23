@@ -33,6 +33,18 @@ discovery.relabel "pod_logs" {
     target_label = "job"
   }
   rule {
+    source_labels = ["__meta_kubernetes_pod_label_app_kubernetes_io_name"]
+    regex         = "(.+)"
+    target_label  = "app_kubernetes_io_name"
+  }
+
+  rule {
+    source_labels = ["__meta_kubernetes_pod_annotation_k8s_grafana_com_logs_job"]
+    regex         = "(.+)"
+    target_label  = "job"
+  }
+
+  rule {
     source_labels = ["__meta_kubernetes_pod_uid", "__meta_kubernetes_pod_container_name"]
     separator = "/"
     action = "replace"
@@ -149,6 +161,8 @@ loki.write "logs_service" {
   external_labels = {
     region = "southwest",
     tenant = "widgetco",
+    env = remote.kubernetes.configmap.cluster_info.data["env"],
+    region = remote.kubernetes.configmap.cluster_info.data["region"],
   }
 }
 
@@ -157,6 +171,7 @@ logging {
   level  = "info"
   format = "logfmt"
 }
+
 discovery.relabel "postgres_logs" {
   targets = discovery.relabel.pod_logs.output
 
@@ -191,4 +206,9 @@ loki.process "postgres_logs" {
     }
   }
   forward_to = [loki.process.logs_service.receiver]
+}
+
+remote.kubernetes.configmap "cluster_info" {
+  name = "cluster_info"
+  namespace = "default"
 }

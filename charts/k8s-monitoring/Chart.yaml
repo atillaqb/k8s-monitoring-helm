@@ -3,8 +3,8 @@ apiVersion: v2
 name: k8s-monitoring
 description: A Helm chart for gathering, scraping, and forwarding Kubernetes telemetry data to a Grafana Stack.
 type: application
-version: 1.0.13
-appVersion: 2.3.4
+version: 1.4.2
+appVersion: 2.6.0
 icon: https://raw.githubusercontent.com/grafana/grafana/main/public/img/grafana_icon.svg
 sources:
   - https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring
@@ -15,33 +15,33 @@ maintainers:
     name: skl
 dependencies:
   - name: alloy
-    version: 0.3.2
+    version: 0.5.0
     repository: https://grafana.github.io/helm-charts
   - alias: alloy-events
     name: alloy
-    version: 0.3.2
+    version: 0.5.0
     repository: https://grafana.github.io/helm-charts
     condition: logs.cluster_events.enabled
   - alias: alloy-logs
     name: alloy
-    version: 0.3.2
+    version: 0.5.0
     repository: https://grafana.github.io/helm-charts
     condition: logs.pod_logs.enabled
   - alias: alloy-profiles
     name: alloy
-    version: 0.3.2
+    version: 0.5.0
     repository: https://grafana.github.io/helm-charts
     condition: profiles.enabled
   - name: kube-state-metrics
-    version: 5.20.0
+    version: 5.21.0
     repository: https://prometheus-community.github.io/helm-charts
     condition: kube-state-metrics.enabled
   - name: prometheus-node-exporter
-    version: 4.34.0
+    version: 4.37.0
     repository: https://prometheus-community.github.io/helm-charts
     condition: prometheus-node-exporter.enabled
   - name: prometheus-operator-crds
-    version: 12.0.0
+    version: 13.0.1
     repository: https://prometheus-community.github.io/helm-charts
     condition: prometheus-operator-crds.enabled
   - name: prometheus-windows-exporter
@@ -49,6 +49,10 @@ dependencies:
     repository: https://prometheus-community.github.io/helm-charts
     condition: prometheus-windows-exporter.enabled
   - name: opencost
-    version: 1.35.0
+    version: 1.40.0
     repository: https://opencost.github.io/opencost-helm-chart
     condition: opencost.enabled
+  - name: kepler
+    version: 0.5.7
+    repository: https://sustainable-computing-io.github.io/kepler-helm-chart
+    condition: kepler.enabled

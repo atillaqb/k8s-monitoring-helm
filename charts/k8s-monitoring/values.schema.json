@@ -5,6 +5,14 @@
         "alloy": {
             "type": "object",
             "properties": {
+                "liveDebugging": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "logging": {
                     "type": "object",
                     "properties": {
@@ -31,6 +39,14 @@
         "alloy-events": {
             "type": "object",
             "properties": {
+                "liveDebugging": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "logging": {
                     "type": "object",
                     "properties": {
@@ -57,6 +73,14 @@
         "alloy-logs": {
             "type": "object",
             "properties": {
+                "liveDebugging": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "logging": {
                     "type": "object",
                     "properties": {
@@ -83,6 +107,14 @@
         "alloy-profiles": {
             "type": "object",
             "properties": {
+                "liveDebugging": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "logging": {
                     "type": "object",
                     "properties": {
@@ -164,6 +196,14 @@
                         }
                     }
                 },
+                "serviceAccount": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
                 "tolerations": {
                     "type": "array"
                 }
@@ -185,6 +225,14 @@
                     "type": "object",
                     "properties": {
                         "kubernetes.io/os": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "serviceAccount": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
                             "type": "string"
                         }
                     }
@@ -224,6 +272,9 @@
                             }
                         },
                         "externalLabels": {
+                            "type": "object"
+                        },
+                        "externalLabelsFrom": {
                             "type": "object"
                         },
                         "host": {
@@ -339,6 +390,9 @@
                         "externalLabels": {
                             "type": "object"
                         },
+                        "externalLabelsFrom": {
+                            "type": "object"
+                        },
                         "host": {
                             "type": "string"
                         },
@@ -391,6 +445,38 @@
                         },
                         "queryEndpoint": {
                             "type": "string"
+                        },
+                        "queue_config": {
+                            "type": "object",
+                            "properties": {
+                                "batch_send_deadline": {
+                                    "type": "string"
+                                },
+                                "capacity": {
+                                    "type": "integer"
+                                },
+                                "max_backoff": {
+                                    "type": "string"
+                                },
+                                "max_samples_per_send": {
+                                    "type": "integer"
+                                },
+                                "max_shards": {
+                                    "type": "integer"
+                                },
+                                "min_backoff": {
+                                    "type": "string"
+                                },
+                                "min_shards": {
+                                    "type": "integer"
+                                },
+                                "retry_on_http_429": {
+                                    "type": "boolean"
+                                },
+                                "sample_age_limit": {
+                                    "type": "string"
+                                }
+                            }
                         },
                         "secret": {
                             "type": "object",
@@ -470,6 +556,9 @@
                             }
                         },
                         "externalLabels": {
+                            "type": "object"
+                        },
+                        "externalLabelsFrom": {
                             "type": "object"
                         },
                         "host": {
@@ -602,6 +691,22 @@
                 }
             }
         },
+        "kepler": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "extraEnvVars": {
+                    "type": "object",
+                    "properties": {
+                        "EXPOSE_ESTIMATED_IDLE_POWER_METRICS": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "kube-state-metrics": {
             "type": "object",
             "properties": {
@@ -652,9 +757,6 @@
                         "enabled": {
                             "type": "boolean"
                         },
-                        "extraConfig": {
-                            "type": "string"
-                        },
                         "extraRelabelingRules": {
                             "type": "string"
                         },
@@ -701,6 +803,14 @@
                         "annotation": {
                             "type": "string"
                         },
+                        "annotations": {
+                            "type": "object",
+                            "properties": {
+                                "job": {
+                                    "type": "string"
+                                }
+                            }
+                        },
                         "discovery": {
                             "type": "string",
                             "enum": [
@@ -729,6 +839,9 @@
                                 "volumes",
                                 "api"
                             ]
+                        },
+                        "labels": {
+                            "type": "object"
                         },
                         "namespaces": {
                             "type": "array",
@@ -1019,6 +1132,9 @@
                                 "metricsScheme": {
                                     "type": "string"
                                 },
+                                "metricsScrapeInterval": {
+                                    "type": "string"
+                                },
                                 "scrape": {
                                     "type": "string"
                                 }
@@ -1056,6 +1172,9 @@
                                     }
                                 }
                             }
+                        },
+                        "scrapeInterval": {
+                            "type": "string"
                         }
                     }
                 },
@@ -1201,6 +1320,48 @@
                 },
                 "extraRelabelingRules": {
                     "type": "string"
+                },
+                "kepler": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "extraMetricRelabelingRules": {
+                            "type": "string"
+                        },
+                        "extraRelabelingRules": {
+                            "type": "string"
+                        },
+                        "labelMatchers": {
+                            "type": "object",
+                            "properties": {
+                                "app.kubernetes.io/name": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "maxCacheSize": {
+                            "type": "null"
+                        },
+                        "metricsTuning": {
+                            "type": "object",
+                            "properties": {
+                                "excludeMetrics": {
+                                    "type": "array"
+                                },
+                                "includeMetrics": {
+                                    "type": "array"
+                                },
+                                "useDefaultAllowList": {
+                                    "type": "boolean"
+                                }
+                            }
+                        },
+                        "scrapeInterval": {
+                            "type": "string"
+                        }
+                    }
                 },
                 "kube-state-metrics": {
                     "type": "object",
@@ -1729,6 +1890,40 @@
                 "enabled": {
                     "type": "boolean"
                 },
+                "java": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "extraRelabelingRules": {
+                            "type": "string"
+                        },
+                        "namespaces": {
+                            "type": "array"
+                        },
+                        "profilingConfig": {
+                            "type": "object",
+                            "properties": {
+                                "alloc": {
+                                    "type": "string"
+                                },
+                                "cpu": {
+                                    "type": "boolean"
+                                },
+                                "interval": {
+                                    "type": "string"
+                                },
+                                "lock": {
+                                    "type": "string"
+                                },
+                                "sampleRate": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                },
                 "pprof": {
                     "type": "object",
                     "properties": {
@@ -1824,6 +2019,14 @@
                 "deployGrafanaAgentService": {
                     "type": "boolean"
                 },
+                "grafanaCloudMetrics": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "grpc": {
                     "type": "object",
                     "properties": {
@@ -1835,6 +2038,9 @@
                         },
                         "port": {
                             "type": "integer"
+                        },
+                        "tls": {
+                            "type": "object"
                         }
                     }
                 },
@@ -1849,6 +2055,9 @@
                         },
                         "port": {
                             "type": "integer"
+                        },
+                        "tls": {
+                            "type": "object"
                         }
                     }
                 },
@@ -1901,6 +2110,9 @@
                                     "type": "integer"
                                 }
                             }
+                        },
+                        "tls": {
+                            "type": "object"
                         }
                     }
                 },
@@ -1962,6 +2174,9 @@
                         },
                         "port": {
                             "type": "integer"
+                        },
+                        "tls": {
+                            "type": "object"
                         }
                     }
                 }
@@ -2023,6 +2238,14 @@
                     "type": "object",
                     "properties": {
                         "kubernetes.io/os": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "serviceAccount": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
                             "type": "string"
                         }
                     }

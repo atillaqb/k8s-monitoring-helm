@@ -2,11 +2,27 @@
 
 This document contains some information about frequently encountered issues and how to resolve them.
 
--   [Troubleshooting](#troubleshooting)
-    -   [Instructions for specific Cluster platform providers](#instructions-for-specific-cluster-platform-providers)
+-   [General Tips](#general-tips)
+    -   [Alloy Web UI](#alloy-web-ui)
+-   [Instructions for specific Cluster platform providers](#instructions-for-specific-cluster-platform-providers)
+-   [Frequently seen problems](#frequently-seen-problems)
     -   [CustomResourceDefinition conflicts](#customresourcedefinition-conflicts)
     -   [Pod log files in `/var/lib/docker/containers`](#pod-log-files-in-varlibdockercontainers)
     -   [Authentication error: invalid scope requested](#authentication-error-invalid-scope-requested)
+    -   [Kepler pods crashing on AWS Graviton nodes](#kepler-pods-crashing-on-aws-graviton-nodes)
+
+## General tips
+
+### Alloy Web UI
+
+Grafana Alloy has a
+[web user interface](https://grafana.com/docs/alloy/latest/tasks/debug/#alloy-ui) that shows every configuration
+component that Alloy instance is using and their statuses. By default, the web UI runs on each Alloy pod on port
+`12345`. Since that UI is typically not exposed external to the Cluster, you can use port-forwarding to access it.
+
+`kubectl port-forward svc/grafana-k8s-monitoring-alloy 12345:12345`
+
+Then open a browser to `http://localhost:12345`
 
 ## Instructions for specific Cluster platform providers
 
@@ -18,7 +34,9 @@ running on one of these platforms, see the example for the changes required to r
 -   [IBM Cloud](../../../examples/ibm-cloud)
 -   [OpenShift](../../../examples/openshift-compatible)
 
-## CustomResourceDefinition conflicts
+## Frequently seen problems
+
+### CustomResourceDefinition conflicts
 
 The Kubernetes Monitoring chart deploys
 the [Prometheus Operator custom resource definitions](https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-operator-crds)
@@ -40,7 +58,7 @@ To fix this problem, you can either:
       enabled: false
     ```
 
-## Pod log files in `/var/lib/docker/containers`
+### Pod log files in `/var/lib/docker/containers`
 
 On certain Kubernetes Clusters, Pod logs are stored inside of `/var/lib/docker/containers` with `/var/log/pods` being
 symlinked to that directory, but the Grafana Alloy instance doesn't mount it by default.
@@ -61,7 +79,7 @@ alloy-logs:
 
 ([source](https://github.com/grafana/k8s-monitoring-helm/issues/309))
 
-## Authentication error: invalid scope requested
+### Authentication error: invalid scope requested
 
 To deliver telemetry data to Grafana Cloud, you use
 an [Access Policy Token](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/)
@@ -86,3 +104,14 @@ The table below shows the scopes required for various actions done by this chart
 | Logs & Cluster Events | Grafana Cloud Logs (Loki)                   | `logs:write`      | `logs:read`       |
 | Traces                | Grafana Cloud Trace (Tempo)                 | `traces:write`    | `traces:read`     |
 | Profiles              | Grafana Cloud Profiles (Pyroscope)          | `profiles:write`  | `profiles:read`   |
+
+### Kepler pods crashing on AWS Graviton nodes
+
+Kepler [cannot run](https://github.com/sustainable-computing-io/kepler/issues/1556) on AWS Graviton nodes and pods on
+those nodes will crash. To prevent this, you can add a node selector to the Kepler deployment:
+
+```yaml
+kepler:
+  nodeSelector:
+    kubernetes.io/arch: amd64
+```
