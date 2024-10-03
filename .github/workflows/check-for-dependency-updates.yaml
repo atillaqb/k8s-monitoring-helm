@@ -36,7 +36,7 @@ jobs:
 
       - name: Regenerate docs
         if: steps.update-alloy.outputs.changed == 'true'
-        run: docker run --rm -v "$(pwd)/charts/k8s-monitoring:/helm-docs" -u "$(id -u)" jnorwood/helm-docs
+        run: docker run --rm -v "$(pwd)/charts/k8s-monitoring-v1:/helm-docs" -u "$(id -u)" jnorwood/helm-docs
 
       - name: Install Helm
         if: steps.update-alloy.outputs.changed == 'true'
@@ -46,11 +46,12 @@ jobs:
 
       - name: Regenerate examples
         if: steps.update-alloy.outputs.changed == 'true'
-        run: make regenerate-example-outputs
+        run: make clean examples
+        working-directory: charts/k8s-monitoring-v1
 
       - name: Create pull request
         if: steps.update-alloy.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           title: "[dependency] Update Grafana Alloy"
           body: "Updates the Grafana Alloy subchart"
@@ -82,7 +83,7 @@ jobs:
 
       - name: Regenerate docs
         if: steps.update-kepler.outputs.changed == 'true'
-        run: docker run --rm -v "$(pwd)/charts/k8s-monitoring:/helm-docs" -u "$(id -u)" jnorwood/helm-docs
+        run: docker run --rm -v "$(pwd)/charts/k8s-monitoring-v1:/helm-docs" -u "$(id -u)" jnorwood/helm-docs
 
       - name: Install Helm
         if: steps.update-kepler.outputs.changed == 'true'
@@ -92,11 +93,12 @@ jobs:
 
       - name: Regenerate examples
         if: steps.update-kepler.outputs.changed == 'true'
-        run: make regenerate-example-outputs
+        run: make clean examples
+        working-directory: charts/k8s-monitoring-v1
 
       - name: Create pull request
         if: steps.update-kepler.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           title: "[dependency] Update Kepler"
           body: "Updates the Kepler subchart"
@@ -128,7 +130,7 @@ jobs:
 
       - name: Regenerate docs
         if: steps.update-kube-state-metrics.outputs.changed == 'true'
-        run: docker run --rm -v "$(pwd)/charts/k8s-monitoring:/helm-docs" -u "$(id -u)" jnorwood/helm-docs
+        run: docker run --rm -v "$(pwd)/charts/k8s-monitoring-v1:/helm-docs" -u "$(id -u)" jnorwood/helm-docs
 
       - name: Install Helm
         if: steps.update-kube-state-metrics.outputs.changed == 'true'
@@ -138,11 +140,12 @@ jobs:
 
       - name: Regenerate examples
         if: steps.update-kube-state-metrics.outputs.changed == 'true'
-        run: make regenerate-example-outputs
+        run: make clean examples
+        working-directory: charts/k8s-monitoring-v1
 
       - name: Create pull request
         if: steps.update-kube-state-metrics.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           title: "[dependency] Update Kube State Metrics"
           body: "Updates the Kube State Metrics subchart"
@@ -174,7 +177,7 @@ jobs:
 
       - name: Regenerate docs
         if: steps.update-node-exporter.outputs.changed == 'true'
-        run: docker run --rm -v "$(pwd)/charts/k8s-monitoring:/helm-docs" -u "$(id -u)" jnorwood/helm-docs
+        run: docker run --rm -v "$(pwd)/charts/k8s-monitoring-v1:/helm-docs" -u "$(id -u)" jnorwood/helm-docs
 
       - name: Install Helm
         if: steps.update-node-exporter.outputs.changed == 'true'
@@ -184,11 +187,12 @@ jobs:
 
       - name: Regenerate examples
         if: steps.update-node-exporter.outputs.changed == 'true'
-        run: make regenerate-example-outputs
+        run: make clean examples
+        working-directory: charts/k8s-monitoring-v1
 
       - name: Create pull request
         if: steps.update-node-exporter.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           title: "[dependency] Update Node Exporter"
           body: "Updates the Node Exporter subchart"
@@ -220,7 +224,7 @@ jobs:
 
       - name: Regenerate docs
         if: steps.update-opencost.outputs.changed == 'true'
-        run: docker run --rm -v "$(pwd)/charts/k8s-monitoring:/helm-docs" -u "$(id -u)" jnorwood/helm-docs
+        run: docker run --rm -v "$(pwd)/charts/k8s-monitoring-v1:/helm-docs" -u "$(id -u)" jnorwood/helm-docs
 
       - name: Install Helm
         if: steps.update-opencost.outputs.changed == 'true'
@@ -230,11 +234,12 @@ jobs:
 
       - name: Regenerate examples
         if: steps.update-opencost.outputs.changed == 'true'
-        run: make regenerate-example-outputs
+        run: make clean examples
+        working-directory: charts/k8s-monitoring-v1
 
       - name: Create pull request
         if: steps.update-opencost.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           title: "[dependency] Update OpenCost"
           body: "Updates the OpenCost subchart"
@@ -266,7 +271,7 @@ jobs:
 
       - name: Regenerate docs
         if: steps.update-prometheus-operator-crds.outputs.changed == 'true'
-        run: docker run --rm -v "$(pwd)/charts/k8s-monitoring:/helm-docs" -u "$(id -u)" jnorwood/helm-docs
+        run: docker run --rm -v "$(pwd)/charts/k8s-monitoring-v1:/helm-docs" -u "$(id -u)" jnorwood/helm-docs
 
       - name: Install Helm
         if: steps.update-prometheus-operator-crds.outputs.changed == 'true'
@@ -276,11 +281,12 @@ jobs:
 
       - name: Regenerate examples
         if: steps.update-prometheus-operator-crds.outputs.changed == 'true'
-        run: make regenerate-example-outputs
+        run: make clean examples
+        working-directory: charts/k8s-monitoring-v1
 
       - name: Create pull request
         if: steps.update-prometheus-operator-crds.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           title: "[dependency] Update Prometheus Operator CRDs"
           body: "Updates the Prometheus Operator CRD subchart"
@@ -312,7 +318,7 @@ jobs:
 
       - name: Regenerate docs
         if: steps.update-windows-exporter.outputs.changed == 'true'
-        run: docker run --rm -v "$(pwd)/charts/k8s-monitoring:/helm-docs" -u "$(id -u)" jnorwood/helm-docs
+        run: docker run --rm -v "$(pwd)/charts/k8s-monitoring-v1:/helm-docs" -u "$(id -u)" jnorwood/helm-docs
 
       - name: Install Helm
         if: steps.update-windows-exporter.outputs.changed == 'true'
@@ -322,11 +328,12 @@ jobs:
 
       - name: Regenerate examples
         if: steps.update-windows-exporter.outputs.changed == 'true'
-        run: make regenerate-example-outputs
+        run: make clean examples
+        working-directory: charts/k8s-monitoring-v1
 
       - name: Create pull request
         if: steps.update-windows-exporter.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           title: "[dependency] Update Windows Exporter"
           body: "Updates the Windows Exporter subchart"
